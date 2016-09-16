@@ -2,5 +2,6 @@
 
 <h2>Flashcard Decks</h2>
 <ul><% @decks.each |deck| do %>
-      <a href="/decks/deck.id/cards/deck.cards.first.id"><%= deck.title %></a>
+      <li><a href="/decks/deck.id/cards/deck.cards.first.id"><%= deck.title %></a></li>
+    <% end %>
 </ul>
