@@ -1,10 +1,8 @@
 <h1>Log in</h1>
 
-<% if @errors %>
-  <ul><% @errors.each do |error| %>
-    <li><%= error %></li>
-  <% end %></ul>
-<% end %>
+<ul>
+<li><%= @error if @error %></li>
+</ul>
 
 <form action="/" method="post">
   <label for="username">Username:</label>
