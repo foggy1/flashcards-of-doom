@@ -14,3 +14,8 @@ post '/users/login' do
     erb :'users/login'
   end
 end
+
+delete '/users/logout' do 
+  session.clear
+  redirect '/users/login'
+end
