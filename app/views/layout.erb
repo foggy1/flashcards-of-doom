@@ -18,6 +18,19 @@
   <title></title>
 </head>
 <body>
+<header>
+  <h1>Flashcards</h1>
+    <% if !logged_in? %>
+      <a href="/users/new">register</a>
+      <a href="/users/login">login</a>
+    <% else %>
+      <a href="/users/<%= current_user.id %>"><%= current_user.username %></a>
+      <form action="/users/logout" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="log out">
+      </form>
+  <a href="/">home</a>
+</header>
   <%= yield %>
 </body>
 </html>
