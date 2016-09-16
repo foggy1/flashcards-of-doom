@@ -1,5 +1,5 @@
 get 'users/login' do
-  erb :'login'
+  erb :'users/login'
 end
 # check erb rout
 
@@ -11,6 +11,6 @@ post 'users/login' do
     redirect '/'
   else
     @error = "Invalid login, please try again."
-    erb :'login'
+    erb :'users/login'
   end
 end
