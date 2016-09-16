@@ -1,0 +1,15 @@
+<h1>Log in</h1>
+
+<% if @errors %>
+  <ul><% @errors.each do |error| %>
+    <li><%= error %></li>
+  <% end %></ul>
+<% end %>
+
+<form action="/" method="post">
+  <label for="username">Username:</label>
+  <input type="text" name="username"></br>
+  <label for="password">Password:</label>
+  <input type="password" name="password">
+  <input type="submit">
+</form>
