@@ -29,8 +29,8 @@ end
 post '/rounds/:round_id/cards/:id' do
   @card = Card.find(params[:id])
   guess = Guess.create(response: params[:response], card_id: @card.id)
-  session[:round].guesses << guess
-  redirect "/rounds/#{session[round].id}/cards/#{@card.id}/answer"
+  current_round.guesses << guess
+  redirect "/rounds/#{current_round.id}/cards/#{@card.id}/answer"
 end
 
 get '/rounds/:round_id/cards/:id/answer' do
@@ -44,21 +44,26 @@ get '/rounds/:round_id/cards/:id/answer' do
   erb :'/cards/answer'
 end
 
-post 'rounds/:round_id/card/:id/next' do
+post '/rounds/:round_id/cards/:id/next' do
   @card = Card.find(params[:id])
-  deck = @card.deck
-  deck.next_card
-  card_to_view = deck.shuffled_deck[deck.current_card_index].id
   # get index of of the id of the current card
   # find card id that is at the next index
   # feed to path
-
   card_index = session[:shuffled_deck_ids].index(@card.id)
   if card_index + 1 >= shuffled_deck_ids.length
-    shuffled_deck_ids -= session[:correct_cards]
-    next_card_id = Card.find_by(id: shuffled_deck_ids.first)
+    session[:shuffled_deck_ids] -= session[:correct_cards]
+    redirect "/rounds/#{current_round.id}/round_stats" if session[:shuffled_deck_ids].length == 0
+    next_card_id = Card.find_by(id: session[:shuffled_deck_ids].first).id
   else
     next_card_id = session[:shuffled_deck_ids][card_index+1]
   end 
-    redirect "rounds/#{session[:round].id}/cards/#{next_card_id}" 
+  redirect "rounds/#{current_round.id}/cards/#{next_card_id}" 
+end
+
+get '/rounds/:round_id/round_stats' do
+  @round = Round.find(params[:round_id])
+  @deck = @round.deck
+  @guess_ids = @round.guesses.map(&:card_id)
+  @correct_guesses = @guess_ids.select { |id| @guess_ids.count(id) == 1 }
+  erb :'rounds/stats'
 end

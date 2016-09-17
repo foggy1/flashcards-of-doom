@@ -2,7 +2,7 @@
 
 <h2><%= @card.question %></h2>
 
-<form action="/rounds/<%= current_round.id %>/card/<%= @card.id %>" method="post">
+<form action="/rounds/<%= current_round.id %>/cards/<%= @card.id %>" method="post">
   <label for="response">Enter your guess:</label></br>
   <input type="text" name="response">
   <input type="submit" value="submit your guess">
