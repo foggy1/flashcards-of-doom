@@ -11,40 +11,37 @@ get '/decks/:deck_id/rounds/new' do
     session[:deck_id] = params[:deck_id]
     current_deck.rounds << current_round
     current_user.rounds << current_round
-    current_deck.shuffle_deck
-    card_to_view = current_deck.shuffled_deck[current_deck.current_card_index].id
-    redirect "/rounds/#{current_round.id}/card/#{card_to_view}"
+    session[:shuffled_deck_ids] = get_shuffled_ids
+    session[:correct_cards] = []
+    first_card_to_view = Card.find_by(id: shuffled_deck_ids.first)
+    redirect "/rounds/#{current_round.id}/cards/#{first_card_to_view.id}"
 end
 
-before '/rounds/:round_id/card/:id' do
+before '/rounds/:round_id/cards/:id' do
+end
+
+get '/rounds/:round_id/cards/:id' do
   @card = Card.find(params[:id])
-  if current_deck.end_of_deck?
-    current_deck.purge
-    current_deck.start_over
-  end
+  @deck = @card.deck
+  erb :'cards/show'
 end
 
-get '/rounds/:round_id/card/:id' do
-  @card = Card.find(params[:id])
-  erb :'card/show'
-end
-
-post '/rounds/:round_id/card/:id' do
+post '/rounds/:round_id/cards/:id' do
   @card = Card.find(params[:id])
   guess = Guess.create(response: params[:response], card_id: @card.id)
   session[:round].guesses << guess
-  redirect "/rounds/#{session[round].id}/card/#{@card.id}/answer"
+  redirect "/rounds/#{session[round].id}/cards/#{@card.id}/answer"
 end
 
-get '/rounds/:round_id/card/:id/answer' do
+get '/rounds/:round_id/cards/:id/answer' do
   @card = Card.find(params[:id])
   if @card.guessed_correctly?
     @message = "Correct!"
-    @card.take_it_out
+    session[:correct_cards] << @card.id
   else
     @message = "Wrong, the correct answer is #{@card.answer}!"
   end
-  erb :'/card/answer'
+  erb :'/cards/answer'
 end
 
 post 'rounds/:round_id/card/:id/next' do
@@ -52,5 +49,16 @@ post 'rounds/:round_id/card/:id/next' do
   deck = @card.deck
   deck.next_card
   card_to_view = deck.shuffled_deck[deck.current_card_index].id
-  redirect "rounds/#{session[:round].id}/card/#{card_to_view}"
+  # get index of of the id of the current card
+  # find card id that is at the next index
+  # feed to path
+
+  card_index = session[:shuffled_deck_ids].index(@card.id)
+  if card_index + 1 >= shuffled_deck_ids.length
+    shuffled_deck_ids -= session[:correct_cards]
+    next_card_id = Card.find_by(id: shuffled_deck_ids.first)
+  else
+    next_card_id = session[:shuffled_deck_ids][card_index+1]
+  end 
+    redirect "rounds/#{session[:round].id}/cards/#{next_card_id}" 
 end

@@ -18,3 +18,11 @@ end
 def logged_in?
   !!current_user
 end
+
+def get_shuffled_ids
+  current_deck.shuffle_deck.map(&:id)
+end
+
+def shuffled_deck_ids
+  @shuffled_deck_ids ||= session[:shuffled_deck_ids]
+end
