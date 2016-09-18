@@ -2,6 +2,6 @@
 
 <h2>Flashcard Decks</h2>
 <ul><% @decks.each do |deck| %>
-      <li><a href="/decks/<%= deck.id %>/rounds/new"><%= deck.title %></a></li>
+      <li class="button text-c w-30 mar-t-2"><a class="a-color" href="/decks/<%= deck.id %>/rounds/new"><%= deck.title %></a></li>
     <% end %>
 </ul>
