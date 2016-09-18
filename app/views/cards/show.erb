@@ -1,6 +1,16 @@
 <h1><%= @deck.title %></h1>
+</br>
+<h2>"<%= @card.question %>"</h2>
+</br>
 
-<h2><%= @card.question %></h2>
+<% if @errors %>
+<ul class="error">
+  <% @errors.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+<% end %>
+
 
 <form action="/rounds/<%= current_round.id %>/cards/<%= @card.id %>" method="post">
   <label for="response">Enter your guess:</label></br>

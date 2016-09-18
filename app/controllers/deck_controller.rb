@@ -4,8 +4,6 @@ get '/decks' do
 end
 
 get '/decks/:deck_id/rounds/new' do
-    # session[:round_id] = nil
-    # session[:deck] = nil
     round = Round.create
     session[:round_id] = round.id
     session[:deck_id] = params[:deck_id]
@@ -28,9 +26,16 @@ end
 
 post '/rounds/:round_id/cards/:id' do
   @card = Card.find(params[:id])
-  guess = Guess.create(response: params[:response], card_id: @card.id)
-  current_round.guesses << guess
-  redirect "/rounds/#{current_round.id}/cards/#{@card.id}/answer"
+  guess = Guess.new(response: params[:response], card_id: @card.id)
+  if guess.save
+    current_round.guesses << guess
+    redirect "/rounds/#{current_round.id}/cards/#{@card.id}/answer"
+  else
+    @errors = guess.errors.full_messages
+    @card = Card.find(params[:id])
+    @deck = @card.deck
+    erb :'cards/show'
+  end
 end
 
 get '/rounds/:round_id/cards/:id/answer' do
@@ -46,9 +51,6 @@ end
 
 post '/rounds/:round_id/cards/:id/next' do
   @card = Card.find(params[:id])
-  # get index of of the id of the current card
-  # find card id that is at the next index
-  # feed to path
   card_index = session[:shuffled_deck_ids].index(@card.id)
   if card_index + 1 >= shuffled_deck_ids.length
     session[:shuffled_deck_ids] -= session[:correct_cards]

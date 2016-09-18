@@ -1,7 +1,6 @@
 get '/users/new' do
   erb :'users/new'
 end
-# check erb rout
 
 post '/users' do
   user = User.new(params[:user])
@@ -12,4 +11,10 @@ post '/users' do
     @errors = user.errors.full_messages
     erb :'users/new'
   end
+end
+
+get '/users/:id' do
+  @user = User.find(params[:id])
+  @decks = Deck.all 
+  erb :'users/show'
 end

@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
+
   <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
+
   <link rel="stylesheet" href="/css/application.css">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="/js/application.js"></script>
-
-  <title></title>
+  <title>Flashcards... Of DOOM</title>
 </head>
+
 <body>
-<header id="header">
+<header>
   <div id="header_container">
-  <h1 class="title">Flashcards... Of Doom</h1>
+
+  <h1 class="title">Flashcards... Of DOOM</h1>
+
+  <nav>
     <% if !logged_in? %>
-      <a href="/users/new">register</a>
-      <a href="/users/login">login</a>
+      <a class="navlink" href="/users/new">register</a>
+      <a class="navlink" href="/users/login">login</a>
     <% else %>
-      <a href="/users/<%= current_user.id %>"><%= current_user.username %></a>
-      <form action="/users/logout" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="log out">
-      </form>
+      <a class="navlink" href="/users/<%= current_user.id %>"><%= current_user.username %></a>
+      <a class="navlink" href="/users/logout">log out</a>
     <% end %>
-  <a href="/">home</a>
-</div>
+    <a class="navlink" href="/">home</a>
+  </nav>
+
+  </div>
 </header>
+<main class="center">
   <%= yield %>
+</main>
 </body>
 </html>

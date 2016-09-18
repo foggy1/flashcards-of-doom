@@ -1,0 +1,46 @@
+<h2><%= @user.username %></h2>
+</br>
+
+<% @decks.each do |deck| %>
+<% if deck.rounds.count>=1 %>
+
+  <%= deck.title%>
+  <br>
+  <table class="round_table">
+
+    <tr>
+      <td>Date:</td>
+      <td>Cards in Deck</td>
+      <td>Correct First Guesses</td>
+      <td>Total guesses</td>
+    </tr>
+
+  <% deck.rounds.each do |round|%>
+
+    <tr>
+      <td>
+        <%= round.created_at.to_date %>
+      </td>
+      <td>
+        <%= deck.cards.count %>
+      </td>
+      <td>
+        <% guess_ids = round.guesses.map(&:card_id) %>
+        <%= guess_ids.select {|id| guess_ids.count(id) == 1 }.count %>
+      </td>
+      <td>
+        <%= round.guesses.count %>
+      </td>
+    </tr>
+
+  <% end %>
+
+  </table>
+  </br>
+
+
+  <% end %>
+<% end %>
+
+
+
