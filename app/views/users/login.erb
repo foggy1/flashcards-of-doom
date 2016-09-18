@@ -1,10 +1,7 @@
 <h1>Log in</h1>
 
-<% if @error %>
-<ul class="error">
-<li><%= @error %></li>
-</ul>
-<% end %>
+<%= erb :'_errors' %>
+
 </br>
 <form action="/users/login" method="post">
   <label for="username">Login:</label>

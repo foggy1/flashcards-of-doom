@@ -10,7 +10,7 @@ post '/users/login' do
     session[:user_id] = user.id
     redirect '/'
   else
-    @error = "Invalid login, please try again."
+    @errors = ["Invalid login, please try again."]
     erb :'users/login'
   end
 end

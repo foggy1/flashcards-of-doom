@@ -1,11 +1,6 @@
 <h1>User Registration</h1>
 
-<% if @errors %>
-  <ul class="error"><% @errors.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-  </ul>
-<% end %>
+<%= erb :'_errors' %>
 </br>
 <form action="/users" method="post">
   <label for="user[username]">Username:</label>

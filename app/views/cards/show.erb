@@ -3,13 +3,7 @@
 <h2>"<%= @card.question %>"</h2>
 </br>
 
-<% if @errors %>
-<ul class="error">
-  <% @errors.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-</ul>
-<% end %>
+<%= erb :'_errors' %>
 
 
 <form action="/rounds/<%= current_round.id %>/cards/<%= @card.id %>" method="post">
