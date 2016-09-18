@@ -84,7 +84,7 @@ main {
 }
 
 .button {
-  background: #32bb7d;
+  background: #990000;
   color: #fefefe;
   padding: 1em;
   text-decoration: none;
@@ -93,7 +93,7 @@ main {
   .button:hover {
     color: white;
     text-decoration: none;
-    background-color: #6ec7a5;
+    background-color: #f2c2c2;
   }
 
 .text-c {
@@ -101,18 +101,31 @@ main {
 }
 
 .a-color {
-  color: #FFFFFF;
+  color: #ffffff;
+}
+  .a-color:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .w-30 {
   width: 30%;
 }
 
+.w-30 {
+  width: 30%;
+}
 .mar-t-2 {
   margin-top: 2em;
 }
 
+.mar-l-0 {
+  margin-left: 0;
+}
 
+.pad-half {
+  padding: 0.5em;
+}
 
 
 
