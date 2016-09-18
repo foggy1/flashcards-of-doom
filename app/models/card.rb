@@ -8,7 +8,7 @@ class Card < ActiveRecord::Base
   validates :answer, presence: true
 
   def guessed_correctly?
-    self.guesses.last == self.answer
+    self.guesses.last.response == self.answer
   end
 
   def take_it_out
