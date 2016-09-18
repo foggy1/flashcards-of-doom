@@ -4,6 +4,7 @@ get '/decks' do
 end
 
 get '/decks/:deck_id/rounds/new' do
+    require_login
     round = Round.create
     session[:round_id] = round.id
     session[:deck_id] = params[:deck_id]
