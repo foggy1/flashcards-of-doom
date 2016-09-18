@@ -15,7 +15,7 @@ post '/users/login' do
   end
 end
 
-delete '/users/logout' do 
+get '/users/logout' do 
   session.clear
   redirect '/users/login'
 end
