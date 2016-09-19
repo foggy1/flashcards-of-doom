@@ -83,5 +83,49 @@ main {
   width: 80%;
 }
 
+.button {
+  background: #990000;
+  color: #fefefe;
+  padding: 1em;
+  text-decoration: none;
+}
+
+  .button:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #f2c2c2;
+  }
+
+.text-c {
+  text-align: center;
+}
+
+.a-color {
+  color: #ffffff;
+}
+  .a-color:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-30 {
+  width: 30%;
+}
+.mar-t-2 {
+  margin-top: 2em;
+}
+
+.mar-t-1 {
+  margin-top: 1em;
+}
+
+.pad-half {
+  padding: 0.5em;
+}
+
 
 

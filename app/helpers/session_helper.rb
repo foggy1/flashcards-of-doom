@@ -12,7 +12,7 @@ end
 
 
 def require_login
-  redirect '/login' unless logged_in?
+  redirect '/users/login' unless logged_in?
 end
 
 def logged_in?

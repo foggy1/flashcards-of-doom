@@ -1,19 +1,16 @@
-<h2>Log in</h2>
+<h1>Log in</h1>
 
-<% if @error %>
-<ul class="error">
-<li><%= @error %></li>
-</ul>
-<% end %>
+<%= erb :'_errors' %>
+
 </br>
 <form action="/users/login" method="post">
-  <label for="username">Username:</label>
+  <label for="username">Login:</label>
 </br>
-  <input type="text" name="login">
-</br>
+  <input type="text" name="login" placeholder="username or email">
+</br></br>
   <label for="password">Password:</label>
 </br>
   <input type="password" name="password">
 </br>
-  <input type="submit">
+  <input class="button text-c w-20 mar-t-2 pad-half" type="submit" value="Login">
 </form>
