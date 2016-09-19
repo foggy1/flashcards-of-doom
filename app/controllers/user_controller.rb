@@ -15,6 +15,9 @@ end
 
 get '/users/:id' do
   @user = User.find(params[:id])
-  @decks = Deck.all 
+  used_decks = @user.decks
+  used_deck_ids = used_decks.map(&:id).uniq
+  @decks = Deck.find(used_deck_ids)
+
   erb :'users/show'
 end
